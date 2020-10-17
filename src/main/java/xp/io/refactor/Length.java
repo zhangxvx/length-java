@@ -20,8 +20,7 @@ public class Length {
           } else if (u.equals("f")){
               len = new Length(value * 3, u);
           }
-      }
-      if (u.equals("yard")) {
+      } else if (u.equals("yard")) {
           if (this.u.equals("f")) {
               len = new Length(value / 3, u);
           } else if (this.u.equals("inch")) {
