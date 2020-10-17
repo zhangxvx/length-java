@@ -2,19 +2,19 @@ package xp.io.refactor;
 
 public class Length {
   private final double value;
-  private final String unit;
+  private final String u;
 
-  public Length(double val, String uinnt) {
+  public Length(double val, String u) {
     this.value = val;
-    this.unit = uinnt;
+    this.u = u;
   }
 
   public Length as(String u) {
     Length len = this;
-    if (unit.equals("f") && u.equals("inch")) len = new Length(value * 12, u);
-    if (unit.equals("inch") && u.equals("f")) len = new Length(value / 12, u);
+    if (this.u.equals("f") && u.equals("inch")) len = new Length(value * 12, u);
+    if (this.u.equals("inch") && u.equals("f")) len = new Length(value / 12, u);
 
-      if (unit.equals("yard")) {
+      if (this.u.equals("yard")) {
           if (u.equals("inch")) {
               len = new Length(value * 36, u);
           } else if (u.equals("f")){
@@ -22,9 +22,9 @@ public class Length {
           }
       }
       if (u.equals("yard")) {
-          if (unit.equals("f")) {
+          if (this.u.equals("f")) {
               len = new Length(value / 3, u);
-          } else if (unit.equals("inch")) {
+          } else if (this.u.equals("inch")) {
               len = new Length(value / 36, u);
           }
       }
@@ -36,7 +36,7 @@ public class Length {
     return this.value;
   }
 
-  public String getUinnt() {
-    return this.unit;
+  public String getUnit() {
+    return this.u;
   }
 }
