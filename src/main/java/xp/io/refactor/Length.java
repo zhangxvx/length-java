@@ -1,45 +1,45 @@
 package xp.io.refactor;
 
 public class Length {
-    private final double val;
-    private final String uinnt;
+    private final double value;
+    private final String unit;
 
-    public Length(double val, String uinnt) {
-        this.val = val;
-        this.uinnt = uinnt;
+    public Length(double value, String unit) {
+        this.value = value;
+        this.unit = unit;
     }
 
-    public Length as(String u) {
+    public Length as(String unit) {
         Length len = this;
-        if (this.uinnt.equals("f") && u.equals("inch")) {
-            len = new Length(val * 12, u);
+        if (this.unit.equals("f") && unit.equals("inch")) {
+            len = new Length(value * 12, unit);
         }
-        if (this.uinnt.equals("inch") && u.equals("f")) {
-            len = new Length(val / 12, u);
+        if (this.unit.equals("inch") && unit.equals("f")) {
+            len = new Length(value / 12, unit);
         }
 
-        if (this.uinnt.equals("yard")) {
-            if (u.equals("inch")) {
-                len = new Length(val * 36, u);
-            } else if (u.equals("f")){
-                len = new Length(val * 3, u);
+        if (this.unit.equals("yard")) {
+            if (unit.equals("inch")) {
+                len = new Length(value * 36, unit);
+            } else if (unit.equals("f")){
+                len = new Length(value * 3, unit);
             }
-        } else if (u.equals("yard")) {
-            if (this.uinnt.equals("f")) {
-                len = new Length(val / 3, u);
-            } else if (this.uinnt.equals("inch")) {
-                len = new Length(val / 36, u);
+        } else if (unit.equals("yard")) {
+            if (this.unit.equals("f")) {
+                len = new Length(value / 3, unit);
+            } else if (this.unit.equals("inch")) {
+                len = new Length(value / 36, unit);
             }
         }
 
         return len;
     }
 
-    public double getVal() {
-        return this.val;
+    public double getValue() {
+        return this.value;
     }
 
     public String getUnit() {
-        return this.uinnt;
+        return this.unit;
     }
 }
