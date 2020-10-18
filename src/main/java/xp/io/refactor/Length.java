@@ -10,29 +10,29 @@ public class Length {
     }
 
     public Length as(String unit) {
-        Length len = this;
+        Length result = this;
         if (this.unit.equals("f") && unit.equals("inch")) {
-            len = new Length(value * 12, unit);
+            result = new Length(value * 12, unit);
         }
         if (this.unit.equals("inch") && unit.equals("f")) {
-            len = new Length(value / 12, unit);
+            result = new Length(value / 12, unit);
         }
 
         if (this.unit.equals("yard")) {
             if (unit.equals("inch")) {
-                len = new Length(value * 36, unit);
+                result = new Length(value * 36, unit);
             } else if (unit.equals("f")){
-                len = new Length(value * 3, unit);
+                result = new Length(value * 3, unit);
             }
         } else if (unit.equals("yard")) {
             if (this.unit.equals("f")) {
-                len = new Length(value / 3, unit);
+                result = new Length(value / 3, unit);
             } else if (this.unit.equals("inch")) {
-                len = new Length(value / 36, unit);
+                result = new Length(value / 36, unit);
             }
         }
 
-        return len;
+        return result;
     }
 
     public double getValue() {
