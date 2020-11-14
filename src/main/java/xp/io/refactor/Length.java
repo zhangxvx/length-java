@@ -1,41 +1,48 @@
 package xp.io.refactor;
 
 public class Length {
-  private final double val;
-  private final String uinnt;
+    private final double value;
+    private final Unit unit;
 
-  public Length(double val, String uinnt) {
-    this.val = val;
-    this.uinnt = uinnt;
-  }
+    public Length(double value, Unit unit) {
+        this.value = value;
+        this.unit = unit;
+    }
 
-  public Length as(String u) {
-    Length len = this;
-    if (this.uinnt.equals("f") && u.equals("inch")) len = new Length(val * 12, u);
-    if (this.uinnt.equals("inch") && u.equals("f")) len = new Length(val / 12, u);
+    public Length as(Unit target) {
+        return new Length(newValueIn(target), target);
+    }
 
-      if (this.uinnt.equals("yard")) {
-          if (u.equals("inch")) {
-              len = new Length(val * 36, u);
-          } else if (u.equals("f")){
-              len = new Length(val * 3, u);
-          }
-      } else if (u.equals("yard")) {
-          if (this.uinnt.equals("f")) {
-              len = new Length(val / 3, u);
-          } else if (this.uinnt.equals("inch")) {
-              len = new Length(val / 36, u);
-          }
-      }
+    private double newValueIn(Unit target) {
+        double targetValue = value;
+        if (this.unit.equals(Unit.FOOT) && target.equals(Unit.INCH)) {
+            targetValue = this.value * 12;
+        }
+        if (this.unit.equals(Unit.INCH) && target.equals(Unit.FOOT)) {
+            targetValue = this.value / 12;
+        }
 
-    return len;
-  }
+        if (this.unit.equals(Unit.YARD) && target.equals(Unit.INCH)) {
+            targetValue = this.value * 36;
+        }
+        if (this.unit.equals(Unit.INCH) && target.equals(Unit.YARD)) {
+            targetValue = this.value / 36;
+        }
 
-  public double getVal() {
-    return this.val;
-  }
+        if (this.unit.equals(Unit.YARD) && target.equals(Unit.FOOT)) {
+            targetValue = this.value * 3;
+        }
+        if (this.unit.equals(Unit.FOOT) && target.equals(Unit.YARD)) {
+            targetValue = this.value / 3;
+        }
+        return targetValue;
+    }
 
-  public String getUnit() {
-    return this.uinnt;
-  }
+    public double getValue() {
+        return this.value;
+    }
+
+    public Unit getUnit() {
+        return this.unit;
+    }
 }
