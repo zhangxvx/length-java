@@ -1,45 +1,51 @@
 package xp.io.refactor;
 
 public class Length {
-    private final double value;
-    private final String unit;
+    public static final Unit INCH = Unit.inch;
+    public static final Unit FOOT = Unit.foot;
+    public static final Unit YARD = Unit.yard;
 
-    public Length(double value, String unit) {
+    private final double value;
+    private final Unit unit;
+
+    public Length(double value, Unit unit) {
         this.value = value;
         this.unit = unit;
     }
 
-    public Length as(String unit) {
-        Length result = this;
-        if (this.unit.equals("f") && unit.equals("inch")) {
-            result = new Length(value * 12, unit);
+    public Length as(Unit unit) {
+        return new Length(newValueIn(unit), unit);
+    }
+
+    private double newValueIn(Unit unit) {
+        if (this.unit == FOOT && unit == INCH) {
+            return value * 12;
         }
-        if (this.unit.equals("inch") && unit.equals("f")) {
-            result = new Length(value / 12, unit);
+        if (this.unit == INCH && unit == FOOT) {
+            return value / 12;
         }
 
-        if (this.unit.equals("yard")) {
-            if (unit.equals("inch")) {
-                result = new Length(value * 36, unit);
-            } else if (unit.equals("f")){
-                result = new Length(value * 3, unit);
-            }
-        } else if (unit.equals("yard")) {
-            if (this.unit.equals("f")) {
-                result = new Length(value / 3, unit);
-            } else if (this.unit.equals("inch")) {
-                result = new Length(value / 36, unit);
-            }
+        if (this.unit == YARD && unit == INCH) {
+            return value * 36;
+        }
+        if (unit == YARD && this.unit == INCH) {
+            return value / 36;
         }
 
-        return result;
+        if (this.unit == YARD && unit == FOOT) {
+            return value * 3;
+        }
+        if (unit == YARD && this.unit == FOOT) {
+            return value / 3;
+        }
+        return value;
     }
 
     public double getValue() {
         return this.value;
     }
 
-    public String getUnit() {
+    public Unit getUnit() {
         return this.unit;
     }
 }
